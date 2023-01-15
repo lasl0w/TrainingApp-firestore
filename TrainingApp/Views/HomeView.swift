@@ -59,6 +59,8 @@ struct HomeView: View {
             .navigationTitle("Get Started")
             // Add the .navTitle on the VStack
         }
+        .navigationViewStyle(.stack)
+        // must set the view style, post XCODE 13 in order to prevent the view from going back to prev automatically
 
         
 

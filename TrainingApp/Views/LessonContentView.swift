@@ -33,12 +33,16 @@ struct LessonContentView: View {
                     ForEach(0..<model.currentModule!.content.lessons.count) { index in
                         
                         // create and populate each card, pass in the index
-                        LessonViewRow(index: index)
+                        NavigationLink(
+                            destination: LessonDetailView()
+                                .onAppear(perform: {model.beginLesson(index)}),
+                            label: {LessonViewRow(index: index)}
+                        )
                     }
-                
                 }
-
-                }
+            }
+            // change lesson list back to black
+            .accentColor(.black)
             .padding()
             .navigationTitle("Learn \(model.currentModule?.category ?? "")")
             // use nil coalescing operator to assign to empty string if nil

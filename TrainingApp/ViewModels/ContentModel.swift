@@ -18,6 +18,9 @@ class ContentModel: ObservableObject {
     @Published var currentModule: Module?
     var currentModuleIndex = 0
     
+    // Current Lesson - save the lesson in state to nav around easier.  The WHOLE thing, not just the Index
+    @Published var currentLesson: Lesson?
+    var currentLessonIndex = 0
     
     
     var styleData: Data?
@@ -84,5 +87,56 @@ class ContentModel: ObservableObject {
         
         // Set the current module
         currentModule = modules[currentModuleIndex]
+    }
+    
+    func beginLesson(_ lessonIndex:Int) {
+        
+        // check that it is in range
+        if lessonIndex < currentModule!.content.lessons.count {
+            currentLessonIndex = lessonIndex
+        }
+        else {
+            currentLessonIndex = 0
+        }
+        
+        // set the current lesson
+        currentLesson = currentModule!.content.lessons[currentLessonIndex]
+        // any value (and view) that relies on the currentLesson will be notified when we assign this as it's published and emits
+    }
+    
+    func hasNextLesson() -> Bool {
+        
+        // core logic - verbose definition
+//        if currentLessonIndex + 1 < currentModule!.content.lessons.count {
+//            return true
+//        }
+//        else {
+//            return false
+//        }
+        
+        // Shorthand of the above. 
+        return (currentLessonIndex + 1 < currentModule!.content.lessons.count)
+    }
+    
+    func nextLesson() {
+        
+        // Advance the lesson
+        currentLessonIndex += 1
+        
+        // check that it is within current range
+        if currentLessonIndex < currentModule!.content.lessons.count {
+            // Set the current lesson property
+            currentLesson = currentModule!.content.lessons[currentLessonIndex]
+        }
+        else {
+            // Shit is weird!  just Reset the lesson state
+            currentLessonIndex = 0
+            currentLesson = nil
+            // order might matter.  reset index first
+            // is it possible to hit this?  Would it drop you back at the top of the view heirarchy? YES
+            // changing currentLesson will change all views dependent on it
+        }
+        
+
     }
 }

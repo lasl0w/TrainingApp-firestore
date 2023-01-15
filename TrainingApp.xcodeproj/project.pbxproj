@@ -18,6 +18,9 @@
 		F16A984A29693DA6001332E7 /* HomeViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A984929693DA6001332E7 /* HomeViewRow.swift */; };
 		F16A984C296A23A9001332E7 /* LessonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A984B296A23A9001332E7 /* LessonContentView.swift */; };
 		F16A984E296BDDFE001332E7 /* LessonViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A984D296BDDFE001332E7 /* LessonViewRow.swift */; };
+		F16A9850296D2B12001332E7 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A984F296D2B12001332E7 /* LessonDetailView.swift */; };
+		F16A98532971215D001332E7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16A98522971215D001332E7 /* AVKit.framework */; };
+		F16A985529722FA3001332E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A985429722FA3001332E7 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		F16A984929693DA6001332E7 /* HomeViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRow.swift; sourceTree = "<group>"; };
 		F16A984B296A23A9001332E7 /* LessonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonContentView.swift; sourceTree = "<group>"; };
 		F16A984D296BDDFE001332E7 /* LessonViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewRow.swift; sourceTree = "<group>"; };
+		F16A984F296D2B12001332E7 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
+		F16A98522971215D001332E7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		F16A985429722FA3001332E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F16A98532971215D001332E7 /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +58,7 @@
 			children = (
 				F16A982A2954285E001332E7 /* TrainingApp */,
 				F16A98292954285E001332E7 /* Products */,
+				F16A98512971215D001332E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +100,7 @@
 				F16A984929693DA6001332E7 /* HomeViewRow.swift */,
 				F16A984B296A23A9001332E7 /* LessonContentView.swift */,
 				F16A984D296BDDFE001332E7 /* LessonViewRow.swift */,
+				F16A984F296D2B12001332E7 /* LessonDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -116,6 +125,7 @@
 			children = (
 				F16A9841295AC8F8001332E7 /* data.json */,
 				F16A9842295AC8F8001332E7 /* style.html */,
+				F16A985429722FA3001332E7 /* Constants.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -126,6 +136,14 @@
 				F16A9845295ACB49001332E7 /* Models.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F16A98512971215D001332E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F16A98522971215D001332E7 /* AVKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,10 +221,12 @@
 				F16A982E2954285E001332E7 /* HomeView.swift in Sources */,
 				F16A984A29693DA6001332E7 /* HomeViewRow.swift in Sources */,
 				F16A984E296BDDFE001332E7 /* LessonViewRow.swift in Sources */,
+				F16A9850296D2B12001332E7 /* LessonDetailView.swift in Sources */,
 				F16A982C2954285E001332E7 /* TrainingApp.swift in Sources */,
 				F16A984029542BDE001332E7 /* ContentModel.swift in Sources */,
 				F16A984C296A23A9001332E7 /* LessonContentView.swift in Sources */,
 				F16A9846295ACB49001332E7 /* Models.swift in Sources */,
+				F16A985529722FA3001332E7 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
