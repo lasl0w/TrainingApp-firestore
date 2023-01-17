@@ -22,6 +22,9 @@ class ContentModel: ObservableObject {
     @Published var currentLesson: Lesson?
     var currentLessonIndex = 0
     
+    // Current lesson explanation
+    @Published var lessonDescription = NSAttributedString()
+    // use this type for webview / UItextview content for proper HTML/CSS handling
     
     var styleData: Data?
     
@@ -102,6 +105,7 @@ class ContentModel: ObservableObject {
         // set the current lesson
         currentLesson = currentModule!.content.lessons[currentLessonIndex]
         // any value (and view) that relies on the currentLesson will be notified when we assign this as it's published and emits
+        lessonDescription = addStyling(currentLesson!.explanation)
     }
     
     func hasNextLesson() -> Bool {
@@ -127,6 +131,7 @@ class ContentModel: ObservableObject {
         if currentLessonIndex < currentModule!.content.lessons.count {
             // Set the current lesson property
             currentLesson = currentModule!.content.lessons[currentLessonIndex]
+            lessonDescription = addStyling(currentLesson!.explanation)
         }
         else {
             // Shit is weird!  just Reset the lesson state
@@ -138,5 +143,53 @@ class ContentModel: ObservableObject {
         }
         
 
+    }
+    
+    // MARK: - Code Styling
+    
+    // Need a helper function to set our rich lesson 'explanation' content
+    private func addStyling(_ htmlString: String) -> NSAttributedString {
+        
+    // https://www.hackingwithswift.com/example-code/system/how-to-convert-html-to-an-nsattributedstring
+        // basic tut ^^^
+        // TODO: - do it as a one-off tut
+        
+        var resultString = NSAttributedString()
+        var data = Data()
+        
+        // Add the styling data (from the very beginning of parsing)
+        if styleData != nil {
+            data.append(styleData!)
+        }
+        
+        
+        // Add the html data
+        // since data is a Data() object, need to do type conversion
+        data.append(Data(htmlString.utf8))
+        
+        // Convert to attributed string - NSAttributedString throws
+        
+        // TECHNIQUE 1 - No error response / handling
+        // the try? suppresses the error
+        if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            
+            // big IF, then do the code block
+            resultString = attributedString
+        }
+        
+        // TECHNIQUE 2 - catch and handle the error
+        // do we need to handle it, correct it or show a message to the user?  If yes, then do T2
+//        do {
+//
+//            let attributedString = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+//
+//                resultString = attributedString
+//        }
+//        catch {
+//            print("couldn't turn html into an attributed string")
+//        }
+        return resultString
+        
+        // THEN... set the lessonDescription in beginLesson() AND nextLesson so that emits/updates too
     }
 }

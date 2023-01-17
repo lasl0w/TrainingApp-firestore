@@ -34,7 +34,8 @@ struct LessonDetailView: View {
                     .cornerRadius(10)
             }
             
-            // Description
+            // Description - new UIKit UITextView element
+            CodeTextView()
             
             // Next lesson button
             
@@ -69,7 +70,7 @@ struct LessonDetailView: View {
 
         }
         .padding()
-
+        .navigationBarTitle(lesson?.title ?? "")
     }
 }
 
