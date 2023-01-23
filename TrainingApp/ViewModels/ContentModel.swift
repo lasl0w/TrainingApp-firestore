@@ -26,6 +26,9 @@ class ContentModel: ObservableObject {
     @Published var lessonDescription = NSAttributedString()
     // use this type for webview / UItextview content for proper HTML/CSS handling
     
+    // Current selected content and test
+    @Published var currentLessonSelected: Int?
+    
     var styleData: Data?
     
     

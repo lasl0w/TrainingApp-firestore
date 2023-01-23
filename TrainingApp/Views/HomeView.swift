@@ -33,7 +33,14 @@ struct HomeView: View {
                             // wrap in VS to get a little extra spacing between cards
                             VStack(spacing:20) {
                                 
-                                NavigationLink(destination: LessonContentView().onAppear(perform: { model.beginModule(module.id)}), label: {
+                                NavigationLink(
+                                    destination: LessonContentView().onAppear(perform: { model.beginModule(module.id)
+                                        //print(model.currentLessonSelected)
+                                    }),
+                                    tag: module.id,
+                                    selection: $model.currentLessonSelected,
+                                    // selection must be a BINDING so it can read and write
+                                    label: {
                                     // Learning Card
                                     HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.lessons.count) Lessons", time: module.content.time)
                                 })

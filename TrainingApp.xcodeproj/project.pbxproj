@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F14C78FE2975C6ED009180C8 /* CodeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14C78FD2975C6ED009180C8 /* CodeTextView.swift */; };
+		F15CCE14297E4CFA002226BE /* RectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CCE13297E4CFA002226BE /* RectangleButton.swift */; };
 		F16A982C2954285E001332E7 /* TrainingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A982B2954285E001332E7 /* TrainingApp.swift */; };
 		F16A982E2954285E001332E7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A982D2954285E001332E7 /* HomeView.swift */; };
 		F16A98302954285F001332E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F16A982F2954285F001332E7 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		F14C78FD2975C6ED009180C8 /* CodeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTextView.swift; sourceTree = "<group>"; };
+		F15CCE13297E4CFA002226BE /* RectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleButton.swift; sourceTree = "<group>"; };
 		F16A98282954285E001332E7 /* TrainingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F16A982B2954285E001332E7 /* TrainingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingApp.swift; sourceTree = "<group>"; };
 		F16A982D2954285E001332E7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				F16A984D296BDDFE001332E7 /* LessonViewRow.swift */,
 				F16A984F296D2B12001332E7 /* LessonDetailView.swift */,
 				F14C78FD2975C6ED009180C8 /* CodeTextView.swift */,
+				F15CCE13297E4CFA002226BE /* RectangleButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				F16A984E296BDDFE001332E7 /* LessonViewRow.swift in Sources */,
 				F16A9850296D2B12001332E7 /* LessonDetailView.swift in Sources */,
 				F16A982C2954285E001332E7 /* TrainingApp.swift in Sources */,
+				F15CCE14297E4CFA002226BE /* RectangleButton.swift in Sources */,
 				F16A984029542BDE001332E7 /* ContentModel.swift in Sources */,
 				F14C78FE2975C6ED009180C8 /* CodeTextView.swift in Sources */,
 				F16A984C296A23A9001332E7 /* LessonContentView.swift in Sources */,

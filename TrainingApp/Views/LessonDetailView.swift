@@ -25,7 +25,7 @@ struct LessonDetailView: View {
         // URL prefix:  https://codewithchris.github.io/learningJSON
         // with AVkit imported, can use the VideoPlayer
         
-        // 3 vert elements
+        // 3 vert elements, so use a VStack
         VStack {
             // only show video if we get a valid URL
             if url != nil {
@@ -47,13 +47,8 @@ struct LessonDetailView: View {
                     
                 }, label: {
                     ZStack {
-                        Rectangle()
+                        RectangleButton(color: Color.green)
                             .frame(height: 48)
-                            .foregroundColor(Color.green)
-                        // set foreground, not background on Rectangle() based buttons!!!
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                            //.padding() // brought off the edges nicely, but apply to whole vstack
                         
                         // we are checking for .hasNextLesson, so we should be able to safely access the properties
                         Text("Next Lesson: \(model.currentModule!.content.lessons[model.currentLessonIndex + 1].title)")
@@ -66,6 +61,31 @@ struct LessonDetailView: View {
                 // BUTTON STYLING - OPT 1 (simple, single use) == add padding(), background color, drop shadow and corner radius HERE on the Button()
                 // problem - it works for a button, but not reusable
                 // BUTTON STYLING - OPT 2 (reusable component) == do ZStack + Rectangle() with foregroundColor, frame, etc as the label
+            }
+            else {
+                // Show the Comlete button
+                Button(action: {
+                    // send them back to the home view
+                    model.currentLessonSelected = nil
+                    
+                }, label: {
+                    ZStack {
+                        
+                        RectangleButton(color: Color.green)
+                            .frame(height: 48)
+  
+                        
+                        // we are checking for .hasNextLesson, so we should be able to safely access the properties
+                        Text("Complete")
+                            .foregroundColor(Color.white)
+                            .bold()
+                            
+                    }
+
+                })
+                
+                // Zoom them back to the HomeView!
+                
             }
 
         }
