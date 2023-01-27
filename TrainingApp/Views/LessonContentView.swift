@@ -44,8 +44,9 @@ struct LessonContentView: View {
             // change lesson list back to black
             .accentColor(.black)
             .padding()
-            .navigationTitle("Learn \(model.currentModule?.category ?? "")")
+            .navigationBarTitle("Learn \(model.currentModule?.category ?? "")")
             // use nil coalescing operator to assign to empty string if nil
+            // TODO .navigationTitle vs. .navigationBarTitle.  what gives?
         }
     }
 }

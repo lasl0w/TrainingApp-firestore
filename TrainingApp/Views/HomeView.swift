@@ -44,13 +44,29 @@ struct HomeView: View {
                                     // Learning Card
                                     HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.lessons.count) Lessons", time: module.content.time)
                                 })
+                                // similar to BEGIN_MODULE when a user clicks on a test, BUT we have to have a function that both sets the current module based on what the user clicked AND sets the current question so they go right into the quiz
+                                // use .onAppear to 'interrupt' and run the func right when the view is called
                                 
-                                
+                                // Using the same module.id tag as above is OK b/c we are tracking the selection with a different param
+                                NavigationLink(
+                                    destination:
+                                        TestView()
+                                        .onAppear(perform: {
+                                        model.beginTest(module.id)
+                                        }),
+                                    // Note the indent clarity above
+                                    tag: module.id,
+                                    selection: $model.currentTestSeleced,
+                                    
+                                    label: {
+                                        // Test Card
+                                        HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.questions.count) Questions", time: module.test.time)
+
+                                    })
+                                // The label above could be explicit like it is OR it could be defined as a trailing closure
 
                                 
-                                // Test Card
-                                HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.questions.count) Questions", time: module.test.time)
-
+                                
                                 
                             }
 

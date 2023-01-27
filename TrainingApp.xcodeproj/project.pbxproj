@@ -23,6 +23,7 @@
 		F16A9850296D2B12001332E7 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A984F296D2B12001332E7 /* LessonDetailView.swift */; };
 		F16A98532971215D001332E7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16A98522971215D001332E7 /* AVKit.framework */; };
 		F16A985529722FA3001332E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A985429722FA3001332E7 /* Constants.swift */; };
+		F17C218B2980EFFB0007F340 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17C218A2980EFFB0007F340 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		F16A984F296D2B12001332E7 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
 		F16A98522971215D001332E7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		F16A985429722FA3001332E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F17C218A2980EFFB0007F340 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				F16A984F296D2B12001332E7 /* LessonDetailView.swift */,
 				F14C78FD2975C6ED009180C8 /* CodeTextView.swift */,
 				F15CCE13297E4CFA002226BE /* RectangleButton.swift */,
+				F17C218A2980EFFB0007F340 /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F17C218B2980EFFB0007F340 /* TestView.swift in Sources */,
 				F16A982E2954285E001332E7 /* HomeView.swift in Sources */,
 				F16A984A29693DA6001332E7 /* HomeViewRow.swift in Sources */,
 				F16A984E296BDDFE001332E7 /* LessonViewRow.swift in Sources */,

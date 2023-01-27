@@ -38,6 +38,7 @@ struct Lesson : Decodable, Identifiable {
     
 }
 
+// The QUIZ part of the app
 struct Test : Decodable, Identifiable {
     
     var id: Int
