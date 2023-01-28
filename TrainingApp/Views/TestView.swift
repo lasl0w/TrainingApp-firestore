@@ -99,17 +99,28 @@ struct TestView: View {
                 Button {
                     
                     // toggle submitted so they can't change their answer!
-                    submitted = true
-                    
-                    // check the answer and increment the counter if correct
-                    if selectedAnswerIndex == model.currentQuestion!.correctIndex {
-                        numCorrect += 1
+                    if submitted == true {
+                        // Answer has already been submitted, move to the next question
+                        model.nextQuestion()
+                        
+                        // reset local state properties
+                        selectedAnswerIndex = nil
+                        submitted = false
+                    }
+                    else {
+                        // Submit the answer
+                        submitted = true
+                        
+                        // check the answer and increment the counter if correct
+                        if selectedAnswerIndex == model.currentQuestion!.correctIndex {
+                            numCorrect += 1
+                        }
                     }
                 } label: {
                     ZStack {
                         RectangleButton(color: .green)
                             .frame(height: 48)
-                        Text("Submit")
+                        Text(buttonText)
                             .bold()
                             .foregroundColor(Color.white)
                             
@@ -129,6 +140,24 @@ struct TestView: View {
             //any element in here triggers the .onAppear.
         }
     
+    }
+    
+    // use a COMPUTED PROPERTY for the submit button test
+    var buttonText: String {
+        // define the property type, then apply the logic with a trailing closure
+        if submitted == true {
+            if model.currentQuestionIndex + 1 == model.currentModule!.test.questions.count {
+                // It's the last question
+                return "Finish"
+            }
+            else {
+                return "Next"
+            }
+             // or Finish
+        }
+        else {
+            return "Submit"
+        }
     }
 }
 

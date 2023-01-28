@@ -18,10 +18,11 @@ class ContentModel: ObservableObject {
     @Published var currentModule: Module?
     var currentModuleIndex = 0
     
-    // Current Lesson - save the lesson in state to nav around easier.  The WHOLE thing, not just the Index
+    // Current Lesson - save the lesson in state to nav around easier.  The WHOLE thing, not just the Index.
     @Published var currentLesson: Lesson?
     var currentLessonIndex = 0
     // Current Question - just like we did to keep track of our current lesson
+    // Update the currentQuestion and our Quiz view triggers to update all the elements, advancing the user to the next question
     @Published var currentQuestion: Question?
     var currentQuestionIndex = 0
     
@@ -152,6 +153,8 @@ class ContentModel: ObservableObject {
 
     }
     
+    // MARK: Quiz Functions
+    
     func beginTest(_ moduleId:Int) {
         
         // Set the current module
@@ -165,6 +168,26 @@ class ContentModel: ObservableObject {
             print("Current Question Index: " + String(currentQuestionIndex))
             // Set the question content and convert the String to an NSAttributedString
             styledContent = addStyling(currentQuestion!.content)
+        }
+        
+    }
+    
+    func nextQuestion() {
+        
+        // Advance the question index
+        currentQuestionIndex += 1
+        
+        // Check that it's within range
+        if currentQuestionIndex < currentModule!.test.questions.count {
+            // Set the currentQuestion and the styledContent
+            currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+            styledContent = addStyling(currentQuestion!.content)
+            
+        }
+        else {
+            // If not, reset the properties
+            currentQuestionIndex = 0
+            currentQuestion = nil
         }
         
     }
