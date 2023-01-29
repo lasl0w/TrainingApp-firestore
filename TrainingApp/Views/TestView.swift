@@ -136,8 +136,9 @@ struct TestView: View {
         else {
             // Test hasn't loaded yet
             //Text("")
-            ProgressView()
+            //ProgressView()
             //any element in here triggers the .onAppear.
+            TestResultsView(numCorrect: numCorrect)
         }
     
     }

@@ -24,6 +24,7 @@
 		F16A98532971215D001332E7 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F16A98522971215D001332E7 /* AVKit.framework */; };
 		F16A985529722FA3001332E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A985429722FA3001332E7 /* Constants.swift */; };
 		F17C218B2980EFFB0007F340 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17C218A2980EFFB0007F340 /* TestView.swift */; };
+		F1BDE4862985C7E500887E0A /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDE4852985C7E500887E0A /* TestResultsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		F16A98522971215D001332E7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		F16A985429722FA3001332E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F17C218A2980EFFB0007F340 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		F1BDE4852985C7E500887E0A /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				F14C78FD2975C6ED009180C8 /* CodeTextView.swift */,
 				F15CCE13297E4CFA002226BE /* RectangleButton.swift */,
 				F17C218A2980EFFB0007F340 /* TestView.swift */,
+				F1BDE4852985C7E500887E0A /* TestResultsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				F16A984029542BDE001332E7 /* ContentModel.swift in Sources */,
 				F14C78FE2975C6ED009180C8 /* CodeTextView.swift in Sources */,
 				F16A984C296A23A9001332E7 /* LessonContentView.swift in Sources */,
+				F1BDE4862985C7E500887E0A /* TestResultsView.swift in Sources */,
 				F16A9846295ACB49001332E7 /* Models.swift in Sources */,
 				F16A985529722FA3001332E7 /* Constants.swift in Sources */,
 			);
