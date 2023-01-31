@@ -41,7 +41,11 @@ class ContentModel: ObservableObject {
     // firstly/specifically when we create the .environmentObject in @main
     init() {
         
+        // parse local json data
         getLocalData()
+        
+        // download remote data then parse it
+        getRemoteData()
     }
     
     // MARK: - Data methods
@@ -80,6 +84,61 @@ class ContentModel: ObservableObject {
             // Log error
             print("Couldn't parse the style data")
         }
+    }
+    
+    func getRemoteData() {
+        
+        // String path
+        let urlString = "https://lasl0w.github.io/training-data/data2.json"
+        // Create URL object
+        let url = URL(string: urlString)
+        // might fail.  "guard" is like "ensure X to move on"
+        guard url != nil else {
+            // guard body must return or throw
+            // Couldn't create a URL, return nothing
+            return
+        }
+        // Create a URLRequest object
+        let request = URLRequest(url: url!)
+        
+        // Get the session and kick off the task
+        // .shared is a special singleton call.   No parens needed.
+        let session = URLSession.shared
+        
+        // returns a URLSessionDataTask object
+        // use a closure instead of the completionHandler syntax.  It says - 'the closure is the completion handler'
+        let dataTask = session.dataTask(with: request) { (data, response, error ) in
+            // Define the Completion Handler here:
+            
+            // Check if there is an error
+            guard error == nil else {
+                //there was an error - bail
+                return
+            }
+            
+            // handle the response
+            do {
+                // Create the jsonDecoder
+                let decoder = JSONDecoder()
+                // Decode - point to what MODEL?  make me some [MODULES] baby!
+                let modules = try decoder.decode([Module].self, from: data!)
+                
+                // append to the Modules
+                self.modules += modules
+                // SELF here refers to the WHOLE CONTENTMODEL CLASS
+            }
+            catch {
+                // couldn't parse json
+                return
+            }
+           
+            
+            
+        }
+        // Actually makes the call, which invokes the above completion handler
+        dataTask.resume()
+        
+
     }
     
     // MARK: - Module navigation methods

@@ -64,11 +64,8 @@ struct HomeView: View {
 
                                     })
                                 // The label above could be explicit like it is OR it could be defined as a trailing closure
-
-                                
-                                
-                                
                             }
+                            .padding(.bottom, 10)
 
                         }
                         
