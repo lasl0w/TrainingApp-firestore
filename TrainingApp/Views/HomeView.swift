@@ -13,6 +13,7 @@ struct HomeView: View {
     // as long as the modifier is in the parent view, define it here to access it on this view
     @EnvironmentObject var model: ContentModel
     
+    
     var body: some View {
         
         // Put the whole thing in a NavView
@@ -33,6 +34,7 @@ struct HomeView: View {
                             // wrap in VS to get a little extra spacing between cards
                             VStack(spacing:20) {
                                 
+                                // .onAppear does not fire until AFTER LessonContentView is rendered
                                 NavigationLink(
                                     destination: LessonContentView().onAppear(perform: { model.beginModule(module.id)
                                         //print(model.currentLessonSelected)
@@ -78,15 +80,16 @@ struct HomeView: View {
             }
             .navigationTitle("Get Started")
             // Add the .navTitle on the VStack
+            // Use .onChange to reset the selection on the Lesson NavLink
+            //.onChange(of: model.currentLessonSelected) { changedValue in
+            //    if changedValue == nil {
+            //        model.currentModule = nil
+            //    }
         }
         .navigationViewStyle(.stack)
         // must set the view style, post XCODE 13 in order to prevent the view from going back to prev automatically
-
-        
-
-
     }
-}
+    }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {

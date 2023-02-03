@@ -87,6 +87,12 @@ class ContentModel: ObservableObject {
     }
     
     func getRemoteData() {
+        // THREADING - Main vs. Background
+        // 1)  Main thread needs to "maintain it's freedom" and is responsible for updating the UI
+        // 2)  Background execution thread does the fetching
+        // 2a) best practice to not use the background thread to update the UI, instead wrap it in a dispatchQueue
+        // 2b) may need to add self. to hep specify for the DispatchQueue
+        
         
         // String path
         let urlString = "https://lasl0w.github.io/training-data/data2.json"
@@ -124,8 +130,14 @@ class ContentModel: ObservableObject {
                 let modules = try decoder.decode([Module].self, from: data!)
                 
                 // append to the Modules
-                self.modules += modules
+                // self.modules += modules
                 // SELF here refers to the WHOLE CONTENTMODEL CLASS
+                
+                // THREADING ISSUE above - BETTER TO USE A DispatchQueue
+                DispatchQueue.main.async {
+                    // assign it to the main thread to take care of it when it gets a chance
+                    self.modules += modules
+                }
             }
             catch {
                 // couldn't parse json
@@ -176,6 +188,10 @@ class ContentModel: ObservableObject {
     }
     
     func hasNextLesson() -> Bool {
+        
+        guard currentModule != nil else {
+            return false
+        }
         
         // core logic - verbose definition
 //        if currentLessonIndex + 1 < currentModule!.content.lessons.count {
@@ -244,7 +260,7 @@ class ContentModel: ObservableObject {
             
         }
         else {
-            // If not, reset the properties
+            // If not, reset the properties.  Time to show the results view
             currentQuestionIndex = 0
             currentQuestion = nil
         }

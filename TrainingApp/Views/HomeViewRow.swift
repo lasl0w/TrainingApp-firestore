@@ -18,7 +18,7 @@ struct HomeViewRow: View {
     
     var body: some View {
 
-        // each card will sit atop a rectangle
+        // Home View Cards - each card will sit atop a rectangle
         ZStack {
             // nice styled background
             Rectangle()

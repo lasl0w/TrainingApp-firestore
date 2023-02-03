@@ -17,13 +17,15 @@ struct TestView: View {
     @State var numCorrect = 0
     // need Submitted state so we know when to grade AND to prevent them from changing their answer
     @State var submitted = false
+    // Alternate way to be absolutely sure we show the test results (prevents the issue with .onChange from HomeView)
+    @State var showResults = false
     
     
     var body: some View {
         
         // TODO - The view won't render unless I add an empty text element.  why?  b/c the .onAppear was not firing.  must handle ELSE
         //Text("")
-        if model.currentQuestion != nil {
+        if model.currentQuestion != nil && showResults == false {
             
             VStack {
                 // Question Number
@@ -100,12 +102,22 @@ struct TestView: View {
                     
                     // toggle submitted so they can't change their answer!
                     if submitted == true {
-                        // Answer has already been submitted, move to the next question
-                        model.nextQuestion()
                         
-                        // reset local state properties
-                        selectedAnswerIndex = nil
-                        submitted = false
+                        // Check if it's the last question
+                        if model.currentQuestionIndex + 1 == model.currentModule!.test.questions.count {
+                            // Show the results.   more explicit than doing it by resetting the properties in model.nextQuestion()
+                            showResults = true
+                        }
+                        else {
+                            // Answer has already been submitted, move to the next question
+                            model.nextQuestion()
+                            
+                            // reset local state properties
+                            selectedAnswerIndex = nil
+                            submitted = false
+                        }
+                        
+
                     }
                     else {
                         // Submit the answer
@@ -133,12 +145,15 @@ struct TestView: View {
             }
             .navigationBarTitle("\(model.currentModule?.category ?? "") Test")
         }
+        else if showResults == true {
+            // Time to show the results view
+            TestResultsView(numCorrect: numCorrect)
+        }
         else {
             // Test hasn't loaded yet
             //Text("")
-            //ProgressView()
+            ProgressView()
             //any element in here triggers the .onAppear.
-            TestResultsView(numCorrect: numCorrect)
         }
     
     }
