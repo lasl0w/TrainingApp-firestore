@@ -6,8 +6,12 @@
 //
 
 import Foundation
+import Firebase
 
 class ContentModel: ObservableObject {
+    
+    // Set global handle for the DB
+    let db = Firestore.firestore()
     
     // Initialize with an empty array of modules
     // since it's publishedd, whatever view code is using it will know when it emits
@@ -41,17 +45,86 @@ class ContentModel: ObservableObject {
     // firstly/specifically when we create the .environmentObject in @main
     init() {
         
-        // parse local json data
-        getLocalData()
         
+        // parse local json data
+        getLocalStyleData()
+        
+        // get DB modules
+        getDBModules()
         // download remote data then parse it
-        getRemoteData()
+        // Comment out - to retrieve via firestore instead
+        //getRemoteData()
     }
     
     // MARK: - Data methods
     
-    func getLocalData() {
+    func getDBModules() {
         
+        // specify path to collection
+        let collection = db.collection("modules")
+        
+        //Get Docs
+        collection.getDocuments {  snapshot, error in
+            // snapshot is a dictionary
+            // slightly diff closure syntax than DB Training modules ^^^
+            
+            
+            if error == nil && snapshot != nil {
+                // Create an array for the modules
+                var modules = [Module]()
+                
+                //Loop through the docs returned
+                for doc in snapshot!.documents {
+                    
+                    // Parse out the data from the firestore document into variables
+                    
+                    
+                    // Create a new module instance - could use the decoder, but we are going to go MANUAL
+                    // to show all the work!
+                    //var m = Module(id: <#T##Int#>, category: <#T##String#>, content: <#T##Content#>, test: <#T##Test#>)
+                    // OR - we are going to set values one at a time, BUT in order to do that, we need to set some initial values in the model
+                    /// in doing so, we need to change the ID data type from Int to String
+                    var m = Module()
+                    
+                    
+                    // Parse out the values from the document into the module instance
+                    // must cast because it doesn't necessarily know what type it's getting back from firestore (string, int, map...)
+                    m.id = doc["id"] as? String ?? UUID().uuidString
+                    m.category = doc["category"] as? String ?? ""
+                    
+                    // Parse the lesson content - it's a MAP in firestore
+                    let contentMap = doc["content"] as! [String:Any]
+                    // must fully force unwrap above in order to typecast below - i think.  Cast as a dictionary.
+                    
+                    m.content.id = contentMap["id"] as? String ?? ""
+                    m.content.description = contentMap["description"] as? String ?? ""
+                    m.content.image = contentMap["image"] as? String ?? ""
+                    m.content.time = contentMap["time"] as? String ?? ""
+                    
+                    // Parse the test content
+                    let testMap = doc["test"] as! [String:Any]
+                    
+                    m.test.id = testMap["id"] as? String ?? ""
+                    m.test.description = testMap["description"] as? String ?? ""
+                    m.test.image = testMap["image"] as? String ?? ""
+                    m.test.time = testMap["time"] as? String ?? ""
+                    
+                    // Add it to our array
+                    modules.append(m)
+                }
+                
+                // Assign our modules to the published property
+                DispatchQueue.main.async {
+                    self.modules = modules
+                }
+            }
+        }
+    }
+    
+    // changing function name to denote 'local style' data
+    func getLocalStyleData() {
+        
+        /*  COMMENTING OUT - REPLACING LOCAL DATA WITH FIRESTORE DATA
         // get a URL to the JSON file
         let jsonURL = Bundle.main.url(forResource: "data", withExtension: "json")
         
@@ -69,7 +142,7 @@ class ContentModel: ObservableObject {
         }
         catch {
                 print("jsonURL path failed.  couldn't parse local data")
-        }
+        } */
         
         // Parse the style data
         let styleURL = Bundle.main.url(forResource: "style", withExtension: "html")
@@ -156,7 +229,7 @@ class ContentModel: ObservableObject {
     // MARK: - Module navigation methods
     
     // omit the argument label with the _ in front of the arg, to make it easier when calling
-    func beginModule(_ moduleid:Int) {
+    func beginModule(_ moduleid:String) {
         
         // Find the index for this module ID
         for index in 0..<modules.count {
@@ -230,7 +303,7 @@ class ContentModel: ObservableObject {
     
     // MARK: Quiz Functions
     
-    func beginTest(_ moduleId:Int) {
+    func beginTest(_ moduleId:String) {
         
         // Set the current module
         beginModule(moduleId)

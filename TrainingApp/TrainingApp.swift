@@ -6,9 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct TrainingApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
+    
+    
     var body: some Scene {
         WindowGroup {
             HomeView()

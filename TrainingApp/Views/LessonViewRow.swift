@@ -20,7 +20,7 @@ struct LessonViewRow: View {
         }
         else {
             // return empty lesson - it's loading and will be set to a real one as soon as .onAppear fires.  milliseconds!
-            return Lesson(id: 0, title: "Loading", video: "", duration: "", explanation: "")
+            return Lesson(id: "", title: "Loading", video: "", duration: "", explanation: "")
             // a BETTER solution is in place with .onChange on HomeView, but this still guards us
         }
     }

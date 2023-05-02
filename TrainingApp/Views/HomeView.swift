@@ -13,6 +13,7 @@ struct HomeView: View {
     // as long as the modifier is in the parent view, define it here to access it on this view
     @EnvironmentObject var model: ContentModel
     
+    // FIRESTORE - refactor tag to use .hash, because it's an Int and can be used to distinguish the module that was tapped
     
     var body: some View {
         
@@ -39,7 +40,7 @@ struct HomeView: View {
                                     destination: LessonContentView().onAppear(perform: { model.beginModule(module.id)
                                         //print(model.currentLessonSelected)
                                     }),
-                                    tag: module.id,
+                                    tag: module.id.hash,
                                     selection: $model.currentLessonSelected,
                                     // selection must be a BINDING so it can read and write
                                     label: {
@@ -57,7 +58,7 @@ struct HomeView: View {
                                         model.beginTest(module.id)
                                         }),
                                     // Note the indent clarity above
-                                    tag: module.id,
+                                    tag: module.id.hash,
                                     selection: $model.currentTestSeleced,
                                     
                                     label: {
