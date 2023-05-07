@@ -58,6 +58,95 @@ class ContentModel: ObservableObject {
     
     // MARK: - Data methods
     
+    // Adding a completion handler - no params, no return value
+    // @escaping means the closure will outlive the getLessons function
+    func getLessons(module: Module, completion: @escaping () -> Void) {
+        
+        // Specify DB path - we already know the module.id
+        // chain to get to the sub-collection
+        let collection = db.collection("modules").document(module.id).collection("lessons")
+        
+        // Get Docs
+        collection.getDocuments { querySnapshot, error in
+            
+            if error == nil && querySnapshot != nil {
+                
+                // Array to track lessons
+                var lessons = [Lesson]()
+                
+                // Loop through the docs and build the array of lessons
+                for doc in querySnapshot!.documents {
+                    
+                    // create empty lesson - we can do this b/c we initialized all the values in the model
+                    var l = Lesson()
+                    l.id = doc["id"] as? String ?? UUID().uuidString
+                    // if you need a UUID, but represented as a string, do that ^^^
+                    l.title = doc["title"] as?  String ?? ""
+                    l.video = doc["video"] as? String ?? ""
+                    l.duration = doc["duration"] as? String ?? ""
+                    l.explanation = doc["explanation"] as? String ?? ""
+                    
+                    // Add the lesson to the array -
+                    lessons.append(l)
+                }
+                
+                // Setting the lessons to the module
+                // Loop through published modules array and find the one that matches the ID of the copy that got passed in
+                for (index,m) in self.modules.enumerated() {
+                    // work with a TUPLE (enumerated()) object instead of just the array to get the index
+                    if m.id == module.id {
+                        // If we match on the right module, populate the lessons from the DB (the lessons array we created)
+                        // m.content.lessons = lessons >>> NOT POSSIBLE BECAUSE MODULES IS A STRUCT (copy not a reference handle)
+                        // Set the lessons
+                        self.modules[index].content.lessons = lessons
+                        
+                        // Call the completion closure
+                        completion()
+                    }
+                }
+            }
+            // add an ELSE If to handle getDocuments error and empty data states normally
+        }
+        
+        // Parse them
+    }
+    
+    func getQuestions(module: Module, completion: @escaping () -> Void) {
+        
+        // Get a handle to the collection
+        let collection = db.collection("modules").document(module.id).collection("questions")
+        
+        // Get the docs (returns a dictionary)
+        collection.getDocuments { querySnapShot, error in
+            
+            if error == nil && querySnapShot != nil {
+                
+                //instantiate our empty array of questions
+                var questions = [Question]()
+                
+                for doc in querySnapShot!.documents {
+                    // create single empty lesson
+                    var q = Question()
+                    q.id = doc["id"] as? String ?? ""
+                    q.content = doc["content"] as? String ?? ""
+                    q.correctIndex = doc["correctIndex"] as? Int ?? 0
+                    q.answers = doc["answers"] as? Array ?? []
+                    //q.answers = doc["answers"] as? [String] ?? [String]()
+                    // Add the next question to the array
+                    questions.append(q)
+                }
+                
+                for (index, m) in self.modules.enumerated() {
+                    if m.id == module.id {
+                        self.modules[index].test.questions = questions
+                        completion()
+                    }
+                }
+            }
+        }
+        
+    }
+    
     func getDBModules() {
         
         // specify path to collection

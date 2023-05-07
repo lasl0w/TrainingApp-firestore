@@ -24,7 +24,7 @@ struct LessonContentView: View {
         ScrollView {
             
             LazyVStack {
-                
+            
                 // Confirm that currentModule is set
                 if model.currentModule != nil {
                     // Force unwrap b/c we will check

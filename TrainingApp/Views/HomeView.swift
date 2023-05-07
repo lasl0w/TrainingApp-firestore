@@ -36,9 +36,16 @@ struct HomeView: View {
                             VStack(spacing:20) {
                                 
                                 // .onAppear does not fire until AFTER LessonContentView is rendered
+                                // 2 functions in .onAppear are async so chained does not work (for first tap as lessons are not fully retrieved when beginModule fires)
+                                // instead - refactor getLesson to accept a completion handler closure
                                 NavigationLink(
-                                    destination: LessonContentView().onAppear(perform: { model.beginModule(module.id)
+                                    destination: LessonContentView().onAppear(perform: {
+                                        model.getLessons(module: module) {
+                                            // getLesson runs first - fully, then beginModule runs!
+                                            model.beginModule(module.id)
+                                        }
                                         //print(model.currentLessonSelected)
+                                        //print(module.id.hash)
                                     }),
                                     tag: module.id.hash,
                                     selection: $model.currentLessonSelected,
@@ -55,7 +62,9 @@ struct HomeView: View {
                                     destination:
                                         TestView()
                                         .onAppear(perform: {
-                                        model.beginTest(module.id)
+                                            model.getQuestions(module: module) {
+                                                model.beginTest(module.id)
+                                            }
                                         }),
                                     // Note the indent clarity above
                                     tag: module.id.hash,
