@@ -7,4 +7,5 @@ target 'TrainingApp' do
 
   # Pods for TrainingApp - the slash matters...
   pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
 end

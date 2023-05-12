@@ -46,11 +46,10 @@ class ContentModel: ObservableObject {
     init() {
         
         
-        // parse local json data
-        getLocalStyleData()
+
         
-        // get DB modules
-        getDBModules()
+        // get DB modules - defer until after Auth
+        //getDBModules()
         // download remote data then parse it
         // Comment out - to retrieve via firestore instead
         //getRemoteData()
@@ -148,6 +147,10 @@ class ContentModel: ObservableObject {
     }
     
     func getDBModules() {
+        
+        // parse local json data - was in init(), but now we are deferring until after auth
+        getLocalStyleData()
+        
         
         // specify path to collection
         let collection = db.collection("modules")

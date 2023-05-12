@@ -19,7 +19,7 @@ struct TrainingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            LaunchView()
                 .environmentObject(ContentModel())
             // set to top level
             // can create right from the start, even when ContentModel is an empty class (as part of project setup)

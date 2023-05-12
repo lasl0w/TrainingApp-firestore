@@ -27,6 +27,9 @@
 		F17C218B2980EFFB0007F340 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17C218A2980EFFB0007F340 /* TestView.swift */; };
 		F19F5A8D29FB8D8C0000A98A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F19F5A8C29FB8D8C0000A98A /* GoogleService-Info.plist */; };
 		F1BDE4862985C7E500887E0A /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BDE4852985C7E500887E0A /* TestResultsView.swift */; };
+		F1C31E652A0DF3E3007CE75A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C31E642A0DF3E3007CE75A /* LoginView.swift */; };
+		F1C31E672A0DF428007CE75A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C31E662A0DF428007CE75A /* ProfileView.swift */; };
+		F1C31E692A0DF467007CE75A /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C31E682A0DF467007CE75A /* LaunchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,9 +53,12 @@
 		F16A984F296D2B12001332E7 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
 		F16A98522971215D001332E7 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		F16A985429722FA3001332E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F17C218A2980EFFB0007F340 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		F17C218A2980EFFB0007F340 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestView.swift; path = "../New Group/TestView.swift"; sourceTree = "<group>"; };
 		F19F5A8C29FB8D8C0000A98A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1BDE4852985C7E500887E0A /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
+		F1C31E642A0DF3E3007CE75A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F1C31E662A0DF428007CE75A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F1C31E682A0DF467007CE75A /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +80,6 @@
 				378AEA960A0C795446651CE9 /* Pods-TrainingApp.debug.xcconfig */,
 				DC7FC378689201AE8373CAC5 /* Pods-TrainingApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -100,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				F16A982B2954285E001332E7 /* TrainingApp.swift */,
+				F1C31E682A0DF467007CE75A /* LaunchView.swift */,
 				F16A983929542AEE001332E7 /* Views */,
 				F16A983A29542AF7001332E7 /* ViewModels */,
 				F16A983E29542B54001332E7 /* Models */,
@@ -122,15 +128,11 @@
 		F16A983929542AEE001332E7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F16A982D2954285E001332E7 /* HomeView.swift */,
-				F16A984929693DA6001332E7 /* HomeViewRow.swift */,
-				F16A984B296A23A9001332E7 /* LessonContentView.swift */,
-				F16A984D296BDDFE001332E7 /* LessonViewRow.swift */,
-				F16A984F296D2B12001332E7 /* LessonDetailView.swift */,
-				F14C78FD2975C6ED009180C8 /* CodeTextView.swift */,
-				F15CCE13297E4CFA002226BE /* RectangleButton.swift */,
-				F17C218A2980EFFB0007F340 /* TestView.swift */,
-				F1BDE4852985C7E500887E0A /* TestResultsView.swift */,
+				F1C31E632A0DF332007CE75A /* Test */,
+				F1C31E622A0DF2E1007CE75A /* Lesson */,
+				F1C31E612A0DF2D9007CE75A /* Home */,
+				F1C31E602A0DD02F007CE75A /* Common */,
+				F1C31E5F2A0DD01D007CE75A /* Account */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +178,52 @@
 				B6078B4CCFB723541BC17B20 /* Pods_TrainingApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1C31E5F2A0DD01D007CE75A /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				F1C31E642A0DF3E3007CE75A /* LoginView.swift */,
+				F1C31E662A0DF428007CE75A /* ProfileView.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		F1C31E602A0DD02F007CE75A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F14C78FD2975C6ED009180C8 /* CodeTextView.swift */,
+				F15CCE13297E4CFA002226BE /* RectangleButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F1C31E612A0DF2D9007CE75A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F16A982D2954285E001332E7 /* HomeView.swift */,
+				F16A984929693DA6001332E7 /* HomeViewRow.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F1C31E622A0DF2E1007CE75A /* Lesson */ = {
+			isa = PBXGroup;
+			children = (
+				F16A984B296A23A9001332E7 /* LessonContentView.swift */,
+				F16A984F296D2B12001332E7 /* LessonDetailView.swift */,
+				F16A984D296BDDFE001332E7 /* LessonViewRow.swift */,
+			);
+			path = Lesson;
+			sourceTree = "<group>";
+		};
+		F1C31E632A0DF332007CE75A /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				F17C218A2980EFFB0007F340 /* TestView.swift */,
+				F1BDE4852985C7E500887E0A /* TestResultsView.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,13 +344,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F17C218B2980EFFB0007F340 /* TestView.swift in Sources */,
+				F1C31E692A0DF467007CE75A /* LaunchView.swift in Sources */,
 				F16A982E2954285E001332E7 /* HomeView.swift in Sources */,
 				F16A984A29693DA6001332E7 /* HomeViewRow.swift in Sources */,
 				F16A984E296BDDFE001332E7 /* LessonViewRow.swift in Sources */,
 				F16A9850296D2B12001332E7 /* LessonDetailView.swift in Sources */,
 				F16A982C2954285E001332E7 /* TrainingApp.swift in Sources */,
 				F15CCE14297E4CFA002226BE /* RectangleButton.swift in Sources */,
+				F1C31E672A0DF428007CE75A /* ProfileView.swift in Sources */,
 				F16A984029542BDE001332E7 /* ContentModel.swift in Sources */,
+				F1C31E652A0DF3E3007CE75A /* LoginView.swift in Sources */,
 				F14C78FE2975C6ED009180C8 /* CodeTextView.swift in Sources */,
 				F16A984C296A23A9001332E7 /* LessonContentView.swift in Sources */,
 				F1BDE4862985C7E500887E0A /* TestResultsView.swift in Sources */,
