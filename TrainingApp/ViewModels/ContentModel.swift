@@ -7,11 +7,15 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 
 class ContentModel: ObservableObject {
     
     // Set global handle for the DB
     let db = Firestore.firestore()
+    
+    // Authentication
+    @Published var loggedIn = false
     
     // Initialize with an empty array of modules
     // since it's publishedd, whatever view code is using it will know when it emits
@@ -46,7 +50,7 @@ class ContentModel: ObservableObject {
     init() {
         
         
-
+        
         
         // get DB modules - defer until after Auth
         //getDBModules()
@@ -54,6 +58,14 @@ class ContentModel: ObservableObject {
         // Comment out - to retrieve via firestore instead
         //getRemoteData()
     }
+    
+    // MARK: - Authentication Methods
+    
+    func checkLogin() {
+        
+        loggedIn = Auth.auth().currentUser != nil ? true : false
+    }
+    
     
     // MARK: - Data methods
     
