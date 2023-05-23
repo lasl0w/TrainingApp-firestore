@@ -17,10 +17,11 @@ struct LaunchView: View {
     // need to know loggedIn
     @EnvironmentObject var model: ContentModel
     
+    
     var body: some View {
         
+
         if model.loggedIn == false {
-            
             // Show the log in or create account view
             LoginView()
                 .onAppear {

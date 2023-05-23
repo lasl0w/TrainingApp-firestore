@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import Firebase
 
 struct LoginView: View {
     
@@ -16,7 +17,7 @@ struct LoginView: View {
     @State var email = ""
     @State var name = ""
     @State var password = ""
-    @State var errorMessage: String = ""
+    @State var errorMessage: String? = nil
     
     // Computed property for button text
     var buttonText: String {
@@ -55,12 +56,22 @@ struct LoginView: View {
             .pickerStyle(SegmentedPickerStyle())
             
             // Form
-            TextField("Email", text: $email)
+            // error - "extra argument in call"
+            // Wrap the form in a GROUP so we don't hit the 10 element limit of the VStack.  Doesn't change any functionality
+            Group {
+                TextField("Email", text: $email)
+                    
+                if loginMode == Constants.LoginMode.createAccount {
+                    TextField("Name", text: $name)
+                }
+                SecureField("Password", text: $password)
                 
-            if loginMode == Constants.LoginMode.createAccount {
-                TextField("Name", text: $name)
+                if errorMessage != nil {
+                    // show it
+                    Text(errorMessage!)
+                }
             }
-            SecureField("Password", text: $password)
+
             
             // Button
             Button {
@@ -71,13 +82,49 @@ struct LoginView: View {
                         // open up the closure
                         // check for errors
                         guard error == nil else {
+                            errorMessage = error!.localizedDescription
                             return
                         }
+                        // no error, clear the errorMessage
+                        // TODO: what's the diff between self.errorMessage and errorMessage when assigning nil?
+                        self.errorMessage = nil
                         
+                        // fetch the user metadata
+                        model.getUserData()
+                        
+                        // change the view to the loggedIn view
+                        model.checkLogin()
                     }
                 }
                 else {
                     // Create a new account
+                    Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                        // check for errors
+                        guard error == nil else {
+                            // oh no!
+                            self.errorMessage = error?.localizedDescription
+                            return
+                        }
+                        // clear error message
+                        self.errorMessage = nil
+                        
+                        // save the first name
+                        let db = Firestore.firestore()
+                        let firebaseUser = Auth.auth().currentUser
+                        // we know this is not nil, b/c the user created an account and the error == nil
+                        let userRef = db.collection("users").document(firebaseUser!.uid)
+                        userRef.setData(["name": name], merge: true)
+                        
+                        // Update the user metadata
+                        let user = UserService.shared.user
+                        user.name = name
+                        
+                        // Change the view to loggedIn view
+                        model.checkLogin()
+                        
+                        // returns just this one reference to the user service - the singleton
+                        //UserService.shared.user
+                    }
                 }
             } label: {
                 // custom button

@@ -58,3 +58,15 @@ struct Question : Identifiable, Decodable {
     var correctIndex: Int = 0
     var answers: [String] = [String]()
 }
+
+// Need a model representation for when we fetch the User document from firestore
+
+class User {
+    // struct is passed around by value.  It passes a copy of it.  Not by reference
+    // use CLASS:  in this case, for a logged in user, we always want to be accessing the same object since we are tracking lastX
+    // we will couple the class usage with our use of a singleton so we can always be sure.  Helper class UserService.
+    var name: String = ""
+    var lastModule: Int?
+    var lastLesson: Int?
+    var lastQuestion: Int?
+}

@@ -50,8 +50,8 @@ class ContentModel: ObservableObject {
     init() {
         
         
-        
-        
+        print("Running init")
+        print(loggedIn)
         // get DB modules - defer until after Auth
         //getDBModules()
         // download remote data then parse it
@@ -62,12 +62,32 @@ class ContentModel: ObservableObject {
     // MARK: - Authentication Methods
     
     func checkLogin() {
-        
+        print("Running checkLogin")
         loggedIn = Auth.auth().currentUser != nil ? true : false
+        print(loggedIn)
     }
     
     
     // MARK: - Data methods
+    
+    func saveData() {
+        
+        // use optional binding
+        if let loggedInUser = Auth.auth().currentUser {
+            // save progress locally - shared user
+            let user = UserService.shared.user
+            user.lastModule = currentModuleIndex
+            user.lastLesson = currentLessonIndex
+            user.lastQuestion = currentQuestionIndex
+            
+            // save it to the Firestore DB
+            let db = Firestore.firestore()
+            let ref = db.collection("users").document(loggedInUser.uid)
+        }
+        
+
+    }
+    
     
     // Adding a completion handler - no params, no return value
     // @escaping means the closure will outlive the getLessons function
@@ -154,6 +174,43 @@ class ContentModel: ObservableObject {
                     }
                 }
             }
+        }
+        
+    }
+    
+    func getUserData() {
+        
+        // check that there is a logged in user
+        guard Auth.auth().currentUser != nil else {
+            // currentUser is nil, no user data to get
+            return
+        }
+        // get the metadata for that user
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(Auth.auth().currentUser!.uid)
+        ref.getDocument { snapshot, error in
+            
+            // example of guard with multiple
+            // TODO: are we sure this resolves as an OR? no, it's an AND....
+            // that's a logic issue, future bug....
+            guard error == nil, snapshot != nil else {
+                //getDoc failed and snapshot is empty
+                return
+            }
+            
+            // Parse the data out and set the user metadata
+            let data = snapshot?.data() // returns a dict
+            let user = UserService.shared.user
+            // data is optional, so must use nil coalesce on any required props
+            user.name = data?["name"] as? String ?? ""
+            
+            // the rest are optional in the model, so no need to coalesce
+            user.lastModule = data?["lastModule"] as? Int
+            user.lastLesson = data?["lastLesson"] as? Int
+            user.lastQuestion = data?["lastQuestion"] as? Int 
+            
+            // TODO: turn the above into constants, to avoid typos
+            
         }
         
     }

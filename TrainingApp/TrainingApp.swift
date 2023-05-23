@@ -12,6 +12,7 @@ import FirebaseCore
 struct TrainingApp: App {
     
     init() {
+        // Firebase Project = Training App
         FirebaseApp.configure()
     }
     
