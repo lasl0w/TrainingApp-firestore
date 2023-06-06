@@ -54,6 +54,7 @@ struct LaunchView: View {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                 // if you don't need the 'output' can use '_'
                 
+                // amended commit
                 // Save progress to the DB when the app is moving to the background
                 model.saveData(writeToDatabase: true)
             }
