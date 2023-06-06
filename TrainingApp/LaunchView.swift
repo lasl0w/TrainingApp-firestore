@@ -49,7 +49,14 @@ struct LaunchView: View {
                         }
                     }
             }
-            
+            .onAppear(perform: model.getDBModules)
+            // emits anytime the app is going into the background.  a good time to save, not be so chatty with the DB
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                // if you don't need the 'output' can use '_'
+                
+                // Save progress to the DB when the app is moving to the background
+                model.saveData(writeToDatabase: true)
+            }
         }
     }
 }

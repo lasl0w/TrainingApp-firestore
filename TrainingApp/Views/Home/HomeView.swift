@@ -15,6 +15,8 @@ struct HomeView: View {
     
     // FIRESTORE - refactor tag to use .hash, because it's an Int and can be used to distinguish the module that was tapped
     
+    
+    
     var body: some View {
         
         // Put the whole thing in a NavView
@@ -31,7 +33,7 @@ struct HomeView: View {
                         
                         // create each card with a ForEach specific to view creation
                         ForEach (model.modules) { module in
-                            
+
                             // wrap in VS to get a little extra spacing between cards
                             VStack(spacing:20) {
                                 

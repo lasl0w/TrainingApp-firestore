@@ -105,11 +105,16 @@ struct TestView: View {
                         
                         // Check if it's the last question
                         if model.currentQuestionIndex + 1 == model.currentModule!.test.questions.count {
+                            
+                            // check the next question and save progress
+                            // still call this so we can reset lastQuestion tracking
+                            model.nextQuestion()
+                            
                             // Show the results.   more explicit than doing it by resetting the properties in model.nextQuestion()
                             showResults = true
                         }
                         else {
-                            // Answer has already been submitted, move to the next question
+                            // Answer has already been submitted, move to the next question (and save progress in firestore)
                             model.nextQuestion()
                             
                             // reset local state properties

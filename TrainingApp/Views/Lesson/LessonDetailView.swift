@@ -65,6 +65,11 @@ struct LessonDetailView: View {
             else {
                 // Show the Comlete button
                 Button(action: {
+                    
+                    // still call nextLesson to reset the values and saveData
+                    // it will reset the values of next lesson
+                    model.nextLesson()
+                    
                     // send them back to the home view
                     model.currentLessonSelected = nil
                     

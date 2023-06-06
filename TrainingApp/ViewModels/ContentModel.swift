@@ -52,11 +52,12 @@ class ContentModel: ObservableObject {
         
         print("Running init")
         print(loggedIn)
-        // get DB modules - defer until after Auth
+        // TODO: get DB modules - defer until after Auth
         //getDBModules()
         // download remote data then parse it
         // Comment out - to retrieve via firestore instead
         //getRemoteData()
+
     }
     
     // MARK: - Authentication Methods
@@ -65,12 +66,16 @@ class ContentModel: ObservableObject {
         print("Running checkLogin")
         loggedIn = Auth.auth().currentUser != nil ? true : false
         print(loggedIn)
+        if loggedIn {
+            getDBModules()
+        }
     }
     
     
     // MARK: - Data methods
     
-    func saveData() {
+    // don't want to be too chatty.  writeToDB some of the time
+    func saveData(writeToDatabase: Bool = false) {
         
         // use optional binding
         if let loggedInUser = Auth.auth().currentUser {
@@ -80,9 +85,17 @@ class ContentModel: ObservableObject {
             user.lastLesson = currentLessonIndex
             user.lastQuestion = currentQuestionIndex
             
-            // save it to the Firestore DB
-            let db = Firestore.firestore()
-            let ref = db.collection("users").document(loggedInUser.uid)
+            if writeToDatabase {
+                // save it to the Firestore DB
+                let db = Firestore.firestore()
+                let ref = db.collection("users").document(loggedInUser.uid)
+                // merge instead of overwrite
+                ref.setData(["lastModule": user.lastModule ?? NSNull(),
+                             "lastLesson": user.lastLesson ?? NSNull(),
+                             "lastQuestion": user.lastQuestion ?? NSNull()], merge: true)
+                // nil coalesce to clear warnings - NSNull() means the same as nil
+            }
+           
         }
         
 
@@ -459,6 +472,9 @@ class ContentModel: ObservableObject {
             // changing currentLesson will change all views dependent on it
         }
         
+        // Save the data to the DB
+        saveData()
+        
 
     }
     
@@ -498,6 +514,9 @@ class ContentModel: ObservableObject {
             currentQuestionIndex = 0
             currentQuestion = nil
         }
+        
+        // Save the progress
+        saveData()
         
     }
     
